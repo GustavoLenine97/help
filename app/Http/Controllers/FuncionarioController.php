@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cargo;
 use App\Models\Funcionario;
 use App\Models\Local;
+use Dotenv\Result\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,5 +39,22 @@ class FuncionarioController extends Controller
         $func->id_cargo = $req->id_cargo;
         $func->save();  
         return redirect('funcionario');
+    }
+
+    protected function FormDeletarFuncionario(){
+        $funcionarios = DB::table('funcionario')->select('id_func','nome_func')->get();
+        return view('funcionario.delete',['funcionarios'=> $funcionarios]);
+    }
+
+    public function delete(Request $req){
+        $func = new Funcionario;
+        $func->nome_func = $req->nome_func;
+        DB::table('funcionario')->where('id_func', '=', $req->nome_func)->delete();
+        return redirect('funcionario');
+    }
+
+    protected function FormAtualizarFuncionario(){
+        $funcionarios = DB::table('funcionario')->select('id_func','nome_func')->get();
+        return view('funcionario.update',['funcionarios'=> $funcionarios]);    
     }
 }

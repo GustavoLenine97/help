@@ -14,15 +14,8 @@
                 <input type="text" class="form-control" name="DescricaoCategoria" placeholder="Descreva o nome da Categoria">
             </div>
             <div class="form-group">
-                <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit Data</button>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
             </div>
         </div>
     </form>
-
 @endsection

@@ -11,7 +11,7 @@
             <div class="info-box bg-blue">
                 <span class="info-box-icon"><i class="fa fa-plus"></i></span>
                 <div class="info-box-content">
-                    <h4>Adicionar um novo funcionario</h4>
+                    <h4>Adicionar funcionário</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
@@ -20,11 +20,11 @@
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="local/deletar">
+        <a href="funcionario/deletar">
             <div class="info-box bg-red">
                 <span class="info-box-icon"><i class="fa fa-minus-circle"></i></span>
                 <div class="info-box-content">
-                    <h4>Remover local</h4>
+                    <h4>Deletar funcionário</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
@@ -48,7 +48,7 @@
 <!-- /.col -->
 </div>
 
-<h2>Cargo</h2>
+<h2>Tabela de funcionários</h2>
 <div class="row">
 
 
@@ -65,7 +65,7 @@
     <tbody>
     @foreach($funcionario as $func)
     <tr>
-    <td><a href="pages/examples/invoice.html">{{ $func->id_func }}</a></td>
+    <td>{{ $func->id_func }}</td>
     <td>{{ $func->nome_func }}</td>
     <td>{{$func->cargo }}</td>
     <td>{{ $func->CPF }}</td>

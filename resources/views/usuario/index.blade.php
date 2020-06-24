@@ -8,15 +8,15 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a href="usuario/cadastrar">
-            <div class="info-box bg-blue">
+            <div class="info-box bg-green">
                 <span class="info-box-icon"><i class="fa fa-plus"></i></span>
                 <div class="info-box-content">
                     <h4>Adicionar um novo usuário</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
         </a>
-        <!-- /.info-box -->
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -34,23 +34,21 @@
 
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a href="usuario/atualizar">
-            <div class="info-box bg-yellow">
-                <span class="info-box-icon"><i class="fa fa-level-up"></i></span>
+            <div class="info-box bg-blue">
+                <span class="info-box-icon"><i class="fa fa-spinner"></i></span>
                 <div class="info-box-content">
                     <h4>Atualizar usuário</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
         </a>
-        <!-- /.info-box -->
+        <!-- /.info-box -->     
     </div>
 
 <!-- /.col -->
 </div>
 
-<h2>Usuário</h2>
-<div class="row">
-
+<h2>Tabela de Usuário</h2>
 
 <table class="table table-bordered">
     <thead>
@@ -76,4 +74,7 @@
     @endforeach
     </tbody>
 </table>
+
+    
+
 @endsection

@@ -5,10 +5,11 @@
 @endsection
 
 @section('content')
-   
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     
-    <form action="submit" method="POST">
+    <form action="chamado/submit" method="POST">
     @csrf
         <div class="box-body">
             <div class="form-group">
@@ -22,15 +23,20 @@
 
             <div class="form-group">
                 <label>Escolha a SubCategoria</label>
-                <select class="form-control input-sm" id="subcategory">
+                <select class="form-control input-sm" id="subcategory" name="subcategory">
                 <option value=""></option>
                 </select>
             </div>
-    
+            
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <label>Descreva o problema</label>
+                <textarea class="form-control" name="descricao" rows="3" placeholder=" "></textarea>
             </div>
-        </div>
+
+            <!-- Button trigger modal -->
+            <button type="submit" class="btn btn-primary">
+                Abrir um chamado
+            </button>
     </form>
 
     <script type="text/javascript" >

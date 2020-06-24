@@ -243,7 +243,7 @@ return [
             'icon' => 'fas fa-fw fa-building',
         ],
         [
-            'text' => 'Funcionario',
+            'text' => 'Funcionário',
             'url'  => 'funcionario',
             'icon' => 'fas fa-fw fa-user',
         ],
