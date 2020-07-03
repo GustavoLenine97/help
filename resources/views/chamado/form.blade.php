@@ -8,7 +8,7 @@
    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
     
-    <form action="submit" method="POST">
+    <form action="{{route('chamado.submit')}}" method="POST">
     @csrf
         <div class="box-body">
             <div class="form-group">
@@ -22,9 +22,13 @@
 
             <div class="form-group">
                 <label>Escolha a SubCategoria</label>
-                <select class="form-control input-sm" id="subcategory">
-                <option value=""></option>
+                <select class="form-control input-sm" name="subcategory" id="subcategory">
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label>Descreva o problema</label>
+                <textarea class="form-control" name="descricao" rows="3" placeholder=" "></textarea>
             </div>
     
             <div class="form-group">

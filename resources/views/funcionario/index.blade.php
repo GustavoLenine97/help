@@ -65,13 +65,16 @@
     <tbody>
     @foreach($funcionario as $func)
     <tr>
-    <td><a href="pages/examples/invoice.html">{{ $func->id_func }}</a></td>
+    <td>{{ $func->id_func }}</td>
     <td>{{ $func->nome_func }}</td>
     <td>{{$func->cargo }}</td>
-    <td>{{ $func->CPF }}</td>
+    <td id="CPF">{{ $func->CPF }}</td>
     <td>{{ $func->nome_local }}</td>
     </tr>
     @endforeach
     </tbody>
 </table>
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

@@ -11,7 +11,7 @@
             <div class="info-box bg-blue">
                 <span class="info-box-icon"><i class="fa fa-plus"></i></span>
                 <div class="info-box-content">
-                    <h4>Adicionar um novo local</h4>
+                    <h4>Adicionar local</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
@@ -33,11 +33,11 @@
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="categoria/atualizar">
+        <a href="local/atualizar">
             <div class="info-box bg-yellow">
                 <span class="info-box-icon"><i class="fa fa-level-up"></i></span>
                 <div class="info-box-content">
-                    <h4>Atualizar categoria</h4>
+                    <h4>Atualizar local</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
@@ -63,7 +63,7 @@
     <tbody>
     @foreach($local as $loc)
     <tr>
-    <td><a href="pages/examples/invoice.html">{{ $loc->id_local }}</a></td>
+    <td>{{ $loc->id_local }} </td>
     <td>{{ $loc->nome_local }}</td>
     <td>{{ $loc->CEP}}</td>
     </tr>

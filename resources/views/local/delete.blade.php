@@ -9,10 +9,10 @@
     <form action="delete" method="POST">
         @csrf
         <div class="form-group">
-            <label>Escolha o local que deseja deletar</label>
-            <select class="form-control">
+            <label>Deletar local</label>
+            <select name="id_local" class="form-control">
                 @foreach($local as $loc)
-                <option name="nome_local">{{$loc->nome_local}}</option>
+                <option name="{{ $loc->id_local}}">{{$loc->nome_local}}</option>
                 @endforeach 
             </select>
         </div>

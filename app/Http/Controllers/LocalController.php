@@ -36,11 +36,40 @@ class LocalController extends Controller
         return view("local.delete",['local' => $local]);
     }
 
-    public function delete(String $req)
+    public function delete(Request $req)
     {   
         $local = new Local;
-        $local = DB::table('local')->where('nome_local',$req)->select('nome_local')->get();
-        echo $local;
+        $local->id_local = $req->id_local;
+        $local = DB::table('local')->where('nome_local','=',$req->id_local)->delete();
+        return redirect('local');
+    }
+
+    // Escolhe o Local que deseja Atualizar
+    public function formAtualizarLocal()
+    {
+        $local = DB::table('local')->select('id_local','nome_local')->get();
+        return view('local.update',['local'=>$local]);
+    }
+
+    // Chama o formulário com os dados do locais
+    public function formAtualizarDadosLocal(Request $req){
+        $local = new Local;
+        $local->id_local = $req->id_local;
+        $local = DB::table('local')->select('id_local','nome_local','CEP')->where('id_local','=',$req->id_local)->get();
+        return view('local.formUpdate',['local'=>$local]);
+    }
+
+    public function update(Request $req)
+    {   
+        $local = new Local;
+        $local->nome_local = $req->nome_local;
+        $local->CEP = $req->CEP;
+        $local = DB::table('local')->where('id_local','=',$req->id_local)
+                ->update([
+                    'nome_local' => $local->nome_local,
+                    'CEP' => $local->CEP    
+                ]);
+        return redirect('local');
     }
 
 }

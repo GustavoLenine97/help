@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+    <script type="text/javascript" src= "/../help/resources/views/local/jquery-1.2.6.pack.js"></script>
+    <script type="text/javascript" src="jquery.maskedinput-1.1.4.pack.js"></script>
     <script type="text/javascript" >
     
     function limpa_formulário_cep() {
@@ -87,7 +89,7 @@
 
             <div class="form-group">
                 <label>Número do Local</label>
-                <input type="text" class="form-control" name="nome_local" placeholder="Descreva o nome do Local">
+                <input type="text" class="form-control" placeholder="Descreva o nome do Local">
             </div>
 
             <div class="form-group">
@@ -121,5 +123,11 @@
             </div>
         </div>
     </form>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#cep").mask("99.999-999");
+        });
+    </script>
 
 @endsection

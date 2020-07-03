@@ -26,13 +26,64 @@ class UsuarioController extends Controller
 
     public function save(Request $req)
     {
-        $func = new Usuario;
-        $func->id_func = $req->id_func;
-        $func->login = $req->login;
-        $func->email = $req->email;
-        $func->password = $req->password;
-        $func->save();  
+        $usuario = new Usuario;
+        $usuario->id_func = $req->id_func;
+        $usuario->login = $req->login;
+        $usuario->email = $req->email;
+        $usuario->password = $req->password;
+        $usuario->save();  
         return redirect('usuario');
+    }
+
+    public function formDeletarUsuario()
+    {   
+        $usuario = DB::table('usuario')
+                    ->join('funcionario','usuario.id_func','=','funcionario.id_func')
+                    ->select('usuario.*','funcionario.id_func','funcionario.nome_func')->get();
+        return view('usuario.delete',['usuario' => $usuario]);
+    }
+
+    public function delete(Request $req)
+    {
+        $usuario = new Usuario;
+        $usuario->id_usuario = $req->id_usuario;
+        $usuario = DB::table('usuario')->where('id_usuario','=',$req->id_usuario)->delete();
+        return redirect('usuario');
+    }
+
+    public function formAtualizarUsuario()
+    {
+        $usuario = DB::table('usuario')
+                    ->join('funcionario','usuario.id_func','=','funcionario.id_func')
+                    ->select('usuario.*','funcionario.id_func','funcionario.nome_func')->get();
+        return view('usuario.update',['usuario' => $usuario ]);
+    }
+
+    public function formAtualizarDadosUsuario(Request $req)
+    {   
+        $usuario = new Usuario;
+        $usuario->id_usuario = $req->id_usuario;
+        $usuario = DB::table('usuario')->where('id_usuario','=',$usuario->id_usuario)->get();
+        $funcionario = DB::table('funcionario')->select('id_func','nome_func')->get();
+        return view('usuario.formUpdate',['usuario' => $usuario, 'funcionario' => $funcionario]);
+    }
+
+    public function update(Request $req)
+    {
+        $usuario = new Usuario;
+        $usuario->id_func = $req->id_func;
+        $usuario->login = $req->login;
+        $usuario->email = $req->email;
+        $usuario->password = $req->password;
+        $usuario = DB::table('usuario')->where('id_usuario','=',$req->id_usuario)
+                    ->update([
+                        'id_func' => $usuario->id_func,
+                        'login' => $usuario->login,
+                        'email' => $usuario->email,
+                        'password' => $usuario->password
+                    ]);
+        return redirect('usuario');               
+
     }
 
 }
