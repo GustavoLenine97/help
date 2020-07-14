@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-<h1>Funcionario</h1>
+    <h1>Funcionario</h1>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <div class="info-box bg-blue">
                 <span class="info-box-icon"><i class="fa fa-plus"></i></span>
                 <div class="info-box-content">
-                    <h4>Adicionar um novo funcionario</h4>
+                    <h4>Adicionar funcionário</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
@@ -20,11 +20,11 @@
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="local/deletar">
+        <a href="funcionario/deletar">
             <div class="info-box bg-red">
                 <span class="info-box-icon"><i class="fa fa-minus-circle"></i></span>
                 <div class="info-box-content">
-                    <h4>Remover local</h4>
+                    <h4>Deletar funcionário</h4>
                 </div>
             <!-- /.info-box-content -->
             </div>
@@ -43,12 +43,12 @@
             </div>
         </a>
         <!-- /.info-box -->
-    </div>
+    </div> 
 
 <!-- /.col -->
 </div>
 
-<h2>Cargo</h2>
+<h2>Tabela de funcionários</h2>
 <div class="row">
 
 
@@ -68,13 +68,10 @@
     <td>{{ $func->id_func }}</td>
     <td>{{ $func->nome_func }}</td>
     <td>{{$func->cargo }}</td>
-    <td id="CPF">{{ $func->CPF }}</td>
+    <td>{{ $func->CPF }}</td>
     <td>{{ $func->nome_local }}</td>
     </tr>
     @endforeach
     </tbody>
 </table>
 @endsection
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>

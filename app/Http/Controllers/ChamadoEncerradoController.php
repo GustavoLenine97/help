@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chamado;
 use App\Models\ChamadoEncerrado;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +17,9 @@ class ChamadoEncerradoController extends Controller
      */
     public function index()
     {   
-        $chamado_enc = DB::table('chamado_encerrados')->get();
+        $chamado_enc = DB::table('chamado_encerrados')
+                        ->select('chamado_encerrados.*')
+                        ->get();
         return view('chamado_encerrado.index',['chamado_enc' => $chamado_enc]);
     }
 
@@ -39,9 +43,14 @@ class ChamadoEncerradoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store($id)
-    {
+    {   
+        $user = auth()->user();
         $chamado_enc = New ChamadoEncerrado;
         $chamado_enc->id_chamado = $id;
+        $chamado_enc->tecnico = $user->name;
+        $usuario = DB::table('chamado')->join('users','users.id','=','chamado.id_user')->select('chamado.*','users.*')->where('chamado.id_chamado','=',$id)->get();
+        $usr = json_decode($usuario);
+        $chamado_enc->usuario = $usr[0]->name;
         $chamado_enc->save();
     }
 
@@ -90,8 +99,4 @@ class ChamadoEncerradoController extends Controller
         
     }
 
-    public function creatre($id)
-    {
-        
-    }
 }

@@ -16,14 +16,20 @@ class CheckIsAdminMiddleware
     public function handle($request, Closure $next)
     {
         $user = auth()->user();
-        /*
-        if($user->email != 'glenine06@gmail.com'){
-            return redirect('/');
-        }*/
         
-        if(!in_array($user->email, ['glenine06@gmail.com','mraz.pearlie@example.com'])){
-            return redirect('/');
+        if($user->email == 'glenine06@gmail.com'){
+            echo 'Teste Admin';
+            exit(1);
+        }else{
+            echo 'Teste user';
+            exit(1);
         }
+        
+        /*
+        if(!in_array($user->email, ['glenine06@gmail.com'])){
+            echo 'Teste Admin';
+        }
+        */
 
         return $next($request);
     }

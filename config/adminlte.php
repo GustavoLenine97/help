@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Suporte Help Desk',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,8 +45,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Help Desk</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/brasão.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -218,14 +218,7 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'danger',
-        ],
-        ['header' => 'account_settings'],
+        ['header' => 'OPÇÕES'],
     
         [
             'text' => 'Usuário',
@@ -255,6 +248,21 @@ return [
         [
             'text' => 'Chamados',
             'url'  => 'chamado/abrirchamado',
+            'icon' => 'fas fa-fw fa-lock',
+            'submenu' => [
+                [
+                    'text' => 'index',
+                    'url' => 'chamado/aberto',
+                ],
+                [
+                    'text' => 'abrir chamado',
+                    'url' => 'chamado/abrirchamado',
+                ]
+            ]
+        ],
+        [
+            'text' => 'Chamados Encerrados',
+            'url'  => 'chamado_encerrado',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [

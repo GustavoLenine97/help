@@ -89,7 +89,6 @@
 
             $('#ok_button').click(function(){
                 $.ajax({
-                    method: "post",
                     url: "chamado_encerrado/store/"+user_id,
                 });
             });

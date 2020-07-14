@@ -18,6 +18,8 @@
             <tr>
             <th>ID </th>
             <th>ID Chamado Encerrado</th>
+            <th>Técnico</th> 
+            <th>Usuário</th>
             </tr>
             </thead>
             <tbody>
@@ -25,6 +27,8 @@
                 <tr>
                     <td>{{ $item->id_cha_enc }}</td>
                     <td>{{ $item->id_chamado }}</td>
+                    <td>{{ $item->tecnico }}</td>
+                    <td>{{ $item->usuario }}</td>
                 </tr>
                 @endforeach
             </tbody>

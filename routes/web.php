@@ -164,4 +164,20 @@ Route::get('ajax-subcat',function(){
 
 Route::resource('chamado_encerrado','ChamadoEncerradoController');
 
-Route::post('chamado_encerrado/create/{id}','ChamadoEncerradoController@create');
+Route::get('chamado/chamado_encerrado/store/{id}','ChamadoEncerradoController@store');
+
+Route::prefix('employee')
+    ->as('employee.')
+    ->group(function() {
+        Route::get('home', 'Home\EmployeeHomeController@index')->name('home');
+Route::namespace('Auth\Login')
+      ->group(function() {
+       Route::get('login', 'EmployeeController@showLoginForm')->name('login');
+    Route::post('login', 'EmployeeController@login')->name('login');
+    Route::post('logout', 'EmployeeController@logout')->name('logout');
+      });
+ });
+
+Route::get('/teste','ChamadoController@chamadoAbertos')->middleware(['check.is.admin']);
+
+Route::get('chamados/store/{id}','ChamadoEncerradoController@store');
