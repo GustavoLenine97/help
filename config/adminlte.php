@@ -258,6 +258,11 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
+            'text' => 'Chamados Encerrados',
+            'url'  => 'chamado_encerrado/index',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
             'text'    => 'multilevelss',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [

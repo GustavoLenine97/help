@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Laravel\Ui\Presets\React;
 
 class UsuarioController extends Controller
 {
@@ -33,6 +34,20 @@ class UsuarioController extends Controller
         $func->password = $req->password;
         $func->save();  
         return redirect('usuario');
+    }
+
+    protected function formDeletarUsuario()
+    {
+        $usuario = DB::table('usuario')->select('id_usuario','login')->get();
+        return view('usuario.delete',['usuarios' => $usuario]);
+    }
+
+    protected function delete(Request $req)
+    {   
+        $usuario = new Usuario;
+        $usuario->id_usuario = $req->id_usuario;
+        $usuario = DB::table('usuario')->where('id_usuario','=',$usuario->id_usuario)->delete();
+        return redirect()->route('usuario');
     }
 
 }

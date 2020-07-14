@@ -24,7 +24,7 @@ class CategoriaController extends Controller
         return view('categoria.subcategoria',['subcats' => $SubCategoria]);
     }
 
-    // Função específica para mostrar todas as subcategoria do Hardware
+    // Função específica para mostrar todas as subcategoria do Software
     // Plano B caso a função subcategoria não funcione
     public function software()
     {
@@ -68,11 +68,10 @@ class CategoriaController extends Controller
         $categoria->CodigoTipo = 1;
         $categoria->AtivoCategoria = 'S';
         $categoria->save();
-        return redirect('categoria');
-        
+        return redirect('categoria');   
     }
 
-    protected function FormDeletarCategoria()
+    protected function formDeletarCategoria()
     {
         $categoria = DB::table('Categoria')->select('CodigoCategoria','DescricaoCategoria')->get();
         return view('categoria.delete',['categoria' => $categoria]);

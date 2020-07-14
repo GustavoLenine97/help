@@ -22,7 +22,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
 Route::middleware(['auth'])->group(function () {
     // Route::get('/', function () {
         // Uses first & second Middleware
@@ -46,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Rotas pra a Tabela Categoria
     // Mostrar as Categorias 
-    Route::get('categoria','CategoriaController@index')->name('categoria')->middleware(['auth','check.is.admin']);
+    Route::get('categoria','CategoriaController@index')->name('categoria');
 
     // Mostrar as SubCategorias da Categoria escolhida
     Route::get('categoria/{request}/subcategoria','CategoriaController@subcategoria')->name('categoria.sub');
@@ -108,11 +107,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('funcionario/delete','FuncionarioController@delete')->name('delete');
 
     // Rotas Usuário
-    Route::get('usuario','UsuarioController@index');
+    Route::get('usuario','UsuarioController@index')->name('usuario');
 
     Route::get('usuario/cadastrar','UsuarioController@FormCadastrarUsuario');
 
     Route::post('usuario/submit','UsuarioController@save');
+
+    Route::get('usuario/deletar','UsuarioController@formDeletarUsuario');
+
+    Route::post('usuario/delete','UsuarioController@delete');
 
     // Rotas Chamados 
     Route::get('chamado','ChamadoController@index');
@@ -126,10 +129,26 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-    Route::post('chamado/submit','ChamadoController@save');
-
-    Route::get('chamado/abertos','ChamadoController@chamadoAbertos')->name('chamado.abertos');
-
 });
 
+Route::get('chamado/index','ChamadoController@index')->name('chamado.index');
+
+Route::get('chamado/abrirchamado','ChamadoController@abrirChamado')->name('chamado.abrirchamado');
+
+Route::post('chamado/submit','ChamadoController@save');
+
+Route::post('chamado/deletar','ChamadoController@deletar')->name('chamado.deletar');
+
+Route::get('chamado/teste','ChamadoController@teste')->name('chamado.teste');
+
+Route::get('chamado/tester','ChamadoController@tester')->name('chamado.tester');
+
+Route::get('chamado/destroy/{id}','ChamadoController@destroy')->name('chamado.destroy');
+
+Route::get('chamado/aberto','ChamadoController@chamadoAbertos');
+
 Route::resource('category','CategoryController');
+
+Route::get('chamado_encerrado/index','ChamadoEncerradoController@index')->name('chamado_encerrado.index');
+
+Route::get('chamado/chamado_encerrado/{id}','ChamadoEncerradoController@save');
