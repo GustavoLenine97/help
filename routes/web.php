@@ -149,6 +149,10 @@ Route::get('chamado/aberto','ChamadoController@chamadoAbertos');
 
 Route::resource('category','CategoryController');
 
-Route::get('chamado_encerrado/index','ChamadoEncerradoController@index')->name('chamado_encerrado.index');
+Route::get('chamado_encerrado/index','ChamadoEncerradoController@index');
+
+Route::get('chamado_encerrado/indexJson','ChamadoEncerradoController@indexJson')->name('chamado_encerrado.index');
 
 Route::get('chamado/chamado_encerrado/{id}','ChamadoEncerradoController@save');
+
+Route::any('chamado_encerrado/search', 'ChamadoEncerradoController@search')->name('encerrado.search');

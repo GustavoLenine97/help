@@ -111,7 +111,7 @@
 
             $('#ok_button').click(function(){
                 $.ajax({
-                    url: "destroy/"+user_id,
+                    url: "chamado/destroy/"+user_id,
                     beforeSend:function(){
                         $('#ok_button').text('Deleting...');
                     },
@@ -127,7 +127,7 @@
             
             $('#ok_button').click(function(){
                 $.ajax({
-                    url: "chamado_encerrado/"+user_id,
+                    url: "chamado/chamado_encerrado/"+user_id,
                     beforeSend:function(){
                         $('#ok_button').text('Deleting...');
                     },

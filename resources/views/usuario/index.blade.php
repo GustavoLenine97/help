@@ -50,7 +50,7 @@
 
     <div class="card">
         <div class="card-header">
-          <h3>Tabela de Usuário</h3>
+          <h4>Tabela de Usuário</h4>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">

@@ -10,22 +10,43 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class ChamadoEncerradoController extends Controller
-{
+{   
+    protected $request;
+    private $repository;
+
+    public function __construct(Request $request, ChamadoEncerrado $chamado_enc)
+    {
+        $this->request = $request;
+        $this->repository = $chamado_enc;
+    }
+
     public function index()
     {   
         $chamado_enc = DB::table('chamado_encerrados')
-                        ->join('users','users.id','=','chamado_encerrados.id_tec')
-                        ->join('chamado','chamado.id_chamado','=','chamado_encerrados.id_chamado')
-                        ->select('users.*','chamado_encerrados.*','chamado.*')
+                        ->select('chamado_encerrados.*')
                         ->get();
-        return view('chamado_encerrado.index',['chamado_enc' => $chamado_enc]);
+        $json = json_encode($chamado_enc);
+        return view('chamado_encerrado.index',['chamado_enc' => $chamado_enc,'json' => $json]);
     }
 
-    public function save($id){
+    public function indexJson()
+    {   
+        $chamado_enc = DB::table('chamado_encerrados')
+                        ->select('tecnico','amount')
+                        ->get();
+        $json = json_encode($chamado_enc);
+        return $json;
+    }
+
+    protected function save($id){
         $user = Auth::user();
         $chamado_enc = new ChamadoEncerrado;
         $chamado_enc->id_chamado = $id;
-        $chamado_enc->id_tec = $user->id;
+        $chamado_enc->tecnico = $user->name;
+        $usuario = DB::table('chamado')->join('users','users.id','=','chamado.id_user')->select('chamado.*','users.*')->where('chamado.id_chamado','=',$id)->get();
+        $usr = json_decode($usuario);
+        $chamado_enc->descricao = $usr[0]->descricao;
+        $chamado_enc->usuario = $usr[0]->name;
         $chamado_enc->save();
     }
 
@@ -34,5 +55,17 @@ class ChamadoEncerradoController extends Controller
         $chamado_enc = new ChamadoEncerrado;
         $chamado_enc->id_cha_enc = $req->id_cha_enc;
         $chamado_enc = DB::table('chamado_encerrados')->where('id_cha_enc','=',$chamado_enc->id_cha_en)->delete();        
+    }
+
+    public function search(Request $request)
+    {   
+        $filters = $request->except('_token');
+
+        $chamado_enc = $this->repository->search($request->filter);
+
+        return view('chamado_encerrado.index',[
+            'chamado_enc' => $chamado_enc,
+            'filters' => $filters,
+        ]);
     }
 }
