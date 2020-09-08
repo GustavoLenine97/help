@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-<h1>Cargo</h1>
+    <h1>Cargo</h1>
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
             </div>
     
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
             </div>
         </div>
     </form>

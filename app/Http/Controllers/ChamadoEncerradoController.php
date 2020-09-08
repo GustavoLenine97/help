@@ -22,8 +22,12 @@ class ChamadoEncerradoController extends Controller
 
     public function index()
     {   
-        $chamado_enc = DB::table('chamado_encerrados')
-                        ->select('chamado_encerrados.*')
+        $chamado_enc = DB::table('chamado_encerrado')
+                        ->join('chamado','chamado.id_chamado','=','chamado_encerrado.id_chamado')
+                        ->join('Categoria','Categoria.CodigoCategoria','=','chamado.id_cat')
+                        ->join('SubCategoria','SubCategoria.CodigoSubCategoria','=','chamado.id_subcat')
+                        ->join('users','users.id','=','chamado.id_user')
+                        ->select('chamado_encerrado.*','chamado.*','Categoria.*','SubCategoria.*','users.*')
                         ->get();
         $json = json_encode($chamado_enc);
         return view('chamado_encerrado.index',['chamado_enc' => $chamado_enc,'json' => $json]);
@@ -43,10 +47,6 @@ class ChamadoEncerradoController extends Controller
         $chamado_enc = new ChamadoEncerrado;
         $chamado_enc->id_chamado = $id;
         $chamado_enc->tecnico = $user->name;
-        $usuario = DB::table('chamado')->join('users','users.id','=','chamado.id_user')->select('chamado.*','users.*')->where('chamado.id_chamado','=',$id)->get();
-        $usr = json_decode($usuario);
-        $chamado_enc->descricao = $usr[0]->descricao;
-        $chamado_enc->usuario = $usr[0]->name;
         $chamado_enc->save();
     }
 

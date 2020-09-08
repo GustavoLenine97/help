@@ -23,8 +23,9 @@
             <thead>
             <tr>
             <th>ID </th>
-            <th>ID Chamado Encerrado</th>
             <th>Técnico</th>
+            <th>Categoria</th>
+            <th>SubCategoria</th>
             <th>Descrição</th>
             <th>Usuário</th>
             </tr>
@@ -33,10 +34,11 @@
                 @foreach ($chamado_enc as $item)
                 <tr>
                     <td>{{ $item->id_cha_enc }}</td>
-                    <td>{{ $item->id_chamado }}</td>
                     <td>{{ $item->tecnico }}</td>
+                    <td>{{ $item->DescricaoCategoria}}</td>
+                    <td>{{ $item->DescricaoSubCategoria}}</td>
                     <td>{{ $item->descricao }}</td>
-                    <td>{{ $item->usuario }}</td>
+                    <td>{{ $item->name }}</td>
                 </tr>
                 @endforeach
             </tbody>

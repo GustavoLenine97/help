@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-<h1>Categoria</h1>
+    <h1>Categoria</h1>
 @endsection
 
 @section('content')
@@ -14,8 +14,9 @@
                 <input type="text" class="form-control" name="DescricaoCategoria" placeholder="Descreva o nome da Categoria">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
             </div>
         </div>
     </form>
+    
 @endsection

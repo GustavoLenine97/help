@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Funcionário</h1>
+    <h1>SubCategoria</h1>
 @endsection
 
 @section('content')
@@ -9,10 +9,10 @@
     @csrf
         <div class="box-body">
             <div class="form-group">
-                <label>Deletar funcionário</label>
-                <select class="form-control" name="id_func">
-                    @foreach($funcionarios as $func)
-                        <option value="{{ $func->id_func }}">{{ $func->nome_func }}</option>
+                <label>Deletar SubCategoria</label>
+                <select class="form-control" name="id_subcat">
+                    @foreach($subcat as $sub)
+                        <option value="{{ $sub->CodigoSubCategoria }}">{{ $sub->DescricaoSubCategoria }}</option>
                     @endforeach
                 </select>
             </div>
@@ -25,4 +25,3 @@
         </div>
     </form>
 @stop
-

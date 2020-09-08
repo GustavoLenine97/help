@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-    <form action="delete" method="post">
+    <form action="update" method="post">
     @csrf
         <div class="box-body">
             <div class="form-group">
-                <label>Deletar Categoria</label>
+                <label>Atualizar Categoria</label>
                 <select class="form-control" name="id_cat" id="">
                     @foreach($categoria as $cat)
                         <option value="{{ $cat->CodigoCategoria }}">{{ $cat->DescricaoCategoria }}</option>
@@ -19,7 +19,7 @@
 
             <div class="box-body">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-danger">Deletar</button>
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
             </div>
         </div>

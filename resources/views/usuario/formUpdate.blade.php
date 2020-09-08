@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-    <form action="delete" method="post">
+    <form action="update" method="post">
     @csrf
         <div class="box-body">
             <div class="form-group">
-                <label>Deletar Usuário</label>
-                <select id="select" class="form-control" name="id_usuario">
+                <label>Atualizar Usuário</label>
+                <select class="form-control" name="id_usuario" id="">
                     @foreach($usuarios as $usuario)
                         <option value="{{ $usuario->id_usuario }}">{{ $usuario->login }}</option>
                     @endforeach
@@ -19,20 +19,9 @@
 
             <div class="box-body">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-danger" id="button">Deletar</button>
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
             </div>
         </div>
     </form>
 @stop
-
-@section('js')
-    <script>
-        $('#button').click(function(){
-            var select = document.getElementById('select').value;
-            $.ajax({
-                url: "funcionario/mudarstatususuariopendente/"+select,
-            });
-        });
-    </script>
-@endsection

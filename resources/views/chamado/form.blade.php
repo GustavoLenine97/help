@@ -1,40 +1,55 @@
 @extends('adminlte::page')
 
-@section('content_header')
-    <h1>Chamado</h1>
-@endsection
-
 @section('content')
 
-    <form action="submit" method="POST">
-    @csrf
-        <div class="box-body">
-            <div class="form-group">
-                <label>Escolha a Categoria</label>
-                <select class="form-control input-sm" name="category" id="category">
-                    @foreach($categoria as $cat)
-                        <option value="{{ $cat->CodigoCategoria }}">{{$cat->DescricaoCategoria }}</option>
-                    @endforeach 
-                </select>
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Abrir chamado</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item active">Abrir Chamado</li>
+                    </ol>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <label>Escolha a SubCategoria</label>
-                <select class="form-control input-sm" id="subcategory" name="subcategory">
-                <option value=""></option>
-                </select>
+    <div class="container-fluid">
+        <form action="submit" method="POST">
+            @csrf
+            <div class="box-body">
+                <div class="form-group">
+                    <label>Escolha a Categoria</label>
+                    <select class="form-control input-sm" name="category" id="category">
+                        @foreach($categoria as $cat)
+                            <option value="{{ $cat->CodigoCategoria }}">{{$cat->DescricaoCategoria }}</option>
+                        @endforeach 
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label>Escolha a SubCategoria</label>
+                    <select class="form-control input-sm" id="subcategory" name="subcategory">
+                    <option value=""></option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Descreva o problema</label>
+                    <textarea class="form-control" name="descricao" rows="3" placeholder=" "></textarea>
+                </div>
+    
+                <!-- Button trigger modal -->
+                <button type="submit" class="btn btn-primary">
+                    Abrir um chamado
+                </button>
             </div>
-            
-            <div class="form-group">
-                <label>Descreva o problema</label>
-                <textarea class="form-control" name="descricao" rows="3" placeholder=" "></textarea>
-            </div>
-
-            <!-- Button trigger modal -->
-            <button type="submit" class="btn btn-primary">
-                Abrir um chamado
-            </button>
-    </form>
+        </form>
+    </div>
 
 @endsection
 

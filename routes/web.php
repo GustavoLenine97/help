@@ -2,6 +2,8 @@
 
 use App\Models\Subcategoria;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
+    toast('Success Toast','success');
+
     return view('welcome');
 });
 
@@ -22,7 +26,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','check.is.admin'])->group(function () {
+    
     // Route::get('/', function () {
         // Uses first & second Middleware
     // });
@@ -50,6 +55,26 @@ Route::middleware(['auth'])->group(function () {
     // Mostrar as SubCategorias da Categoria escolhida
     Route::get('categoria/{request}/subcategoria','CategoriaController@subcategoria')->name('categoria.sub');
 
+    // Cadastrar subcategoria 
+    // Formulário para Cadastrar Subcategoria
+    Route::get('categoria/{request}/subcategoria/cadastrar','CategoriaController@formCadastrarSubcategoria');
+
+    Route::post('categoria/{request}/subcategoria/submit','CategoriaController@saveSubCategoria');
+
+    //Formulário para remover Subcategoria
+    Route::get('categoria/{request}/subcategoria/deletar','CategoriaController@formDeletarSubcategoria');
+
+    Route::post('categoria/{request}/subcategoria/delete','CategoriaController@deleteSubcategoria');
+
+    //Formulário para atualizar Subcategoria
+    // Primeiro escolhe qual subcategoria ira atualizar
+    Route::get('categoria/{request}/subcategoria/atualizar','CategoriaController@formUpdateSubcategoria');
+    
+    // Em seguida alterar a subcategoria desejada, exemplo: Windows, altera para Windows 10
+    Route::post('categoria/{request}/subcategoria/update','CategoriaController@formAtualizarSubcategoria');
+
+    Route::post('categoria/{request}/subcategoria/updated','CategoriaController@updateSubCategoria');
+
     // Rota pra chamar o formulário para cadastrar novas categorias
     Route::get('categoria/cadastrar','CategoriaController@formCadastrarCategoria');
 
@@ -65,9 +90,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('categoria/delete','CategoriaController@delete');
 
     // Rota para atualizar a categoria desejada 
-    Route::get('categoria/atualizar','CategoriaController@formAtualizarCategoria');
+    Route::get('categoria/atualizar','CategoriaController@formUpdateCategoria');
 
-    Route::get('categoria/sub','CategoriaController@sub');
+    Route::post('categoria/update','CategoriaController@formAtualizarCategoria');
+
+    Route::post('categoria/updated','CategoriaController@update');
 
     //Rotas pra locais
     // Mostrar todos os Locais
@@ -84,6 +111,16 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('local/delete','LocalController@delete'); 
 
+    // Atualizar
+    Route::get('local/atualizar','LocalController@formUpdateLocal');
+
+    Route::post('local/update','LocalController@formAtualizarLocal');
+
+    Route::post('local/updated','LocalController@update');
+
+    // Chama as lista telefonica
+    Route::get('local/fone','LocalController@fone');
+
 
     //Rotas Cargo
     Route::get('cargo','CargoController@index');
@@ -92,19 +129,44 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('cargo/submit','CargoController@save');
 
+    Route::get('cargo/deletar','CargoController@formDeletarCargo');
+
+    Route::post('cargo/delete','CargoController@delete');
+
+    Route::get('cargo/atualizar','CargoController@formUpdateCargo');
+
+    Route::post('cargo/update','CargoController@formAtualizarCargo');
+
+    Route::post('cargo/updated','CargoController@update');
+
     //Rotas Funcionário
     Route::get('funcionario','FuncionarioController@index');
 
-    Route::get('funcionario/cadastrar','FuncionarioController@FormCadastrarFuncionario');
+    Route::get('funcionario/cadastrar','FuncionarioController@formCadastrarFuncionario');
 
     Route::post('funcionario/submit','FuncionarioController@save');
 
     // Deletar funcionario rota 1 chamar form, rota 2 depois deletar do banco de dados
     // Rota 1 
-    Route::get('funcionario/deletar','FuncionarioController@FormDeletarFuncionario');
+    Route::get('funcionario/deletar','FuncionarioController@formDeletarFuncionario');
 
     //Rota 2
     Route::post('funcionario/delete','FuncionarioController@delete')->name('delete');
+
+    Route::get('funcionario/atualizar','FuncionarioController@formUpdateFuncionario');
+
+    Route::post('funcionario/update','FuncionarioController@formAtualizarFuncionario');
+
+    Route::post('funcionario/updated','FuncionarioController@update');
+
+    // Mudar status do funcionário para Ativo/Pendente
+    Route::get('usuario/funcionario/mudarstatususuarioativo/{id}','FuncionarioController@mudarStatusUsuarioAtivo');
+
+    Route::get('usuario/funcionario/mudarstatususuariopendente/{id}','FuncionarioController@mudarStatusUsuarioPendente');
+
+    Route::post('usuario/del',function(){
+
+    });
 
     // Rotas Usuário
     Route::get('usuario','UsuarioController@index')->name('usuario');
@@ -116,6 +178,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('usuario/deletar','UsuarioController@formDeletarUsuario');
 
     Route::post('usuario/delete','UsuarioController@delete');
+
+    Route::get('usuario/atualizar','UsuarioController@formUpdateUsuario');
+
+    Route::post('usuario/update','UsuarioController@formAtualizarUsuario');
+
+    Route::post('usuario/updated','UsuarioController@update');
 
     // Rotas Chamados 
     Route::get('chamado','ChamadoController@index');
@@ -131,7 +199,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('chamado/index','ChamadoController@index')->name('chamado.index');
+//Route::get('chamado/index','ChamadoController@index')->name('chamado.index');
 
 Route::get('chamado/abrirchamado','ChamadoController@abrirChamado')->name('chamado.abrirchamado');
 
@@ -147,6 +215,8 @@ Route::get('chamado/destroy/{id}','ChamadoController@destroy')->name('chamado.de
 
 Route::get('chamado/aberto','ChamadoController@chamadoAbertos');
 
+Route::get('chamado/meuschamados','ChamadoController@meuschamados');
+
 Route::resource('category','CategoryController');
 
 Route::get('chamado_encerrado/index','ChamadoEncerradoController@index');
@@ -155,4 +225,6 @@ Route::get('chamado_encerrado/indexJson','ChamadoEncerradoController@indexJson')
 
 Route::get('chamado/chamado_encerrado/{id}','ChamadoEncerradoController@save');
 
-Route::any('chamado_encerrado/search', 'ChamadoEncerradoController@search')->name('encerrado.search');
+Route::any('chamado_encerrado/search','ChamadoEncerradoController@search')->name('encerrado.search');
+
+Route::get('chamado/index','ChamadoController@alerttt');

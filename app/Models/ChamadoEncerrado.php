@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChamadoEncerrado extends Model
 {
+    protected $table = 'chamado_encerrado';
     protected $primaryKey = 'id_cha_enc';
 
     public function search($filter = null)

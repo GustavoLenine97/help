@@ -68,7 +68,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="ok_button" name="ok_button">Save changes</button>
+                <button type="button" class="btn btn-primary" id="ok_button" name="ok_button">Save changes</button>
             </div>
             </div>
         </div>
@@ -94,6 +94,7 @@
                 <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-danger">Fechar</button>
                 <button type="button" name="ok_button" id="ok_button" class="btn btn-info">JS</button>
+                <button type="button" class="btn btn-primary" id="ok_button" name="ok_button">Save changes</button>
             </div>
             </div>
         </div>
@@ -117,7 +118,7 @@
                     },
                     success:function(data){
                         setTimeout(function(){
-                            $('#confirmModal').modal('hide');
+                            $('#delete').modal('hide');
                             window.location.reload();
                             $('#ok_button').text('OK');
                         }, 2000);
@@ -140,6 +141,7 @@
                     }
                 });
             });
+            
         });
     </script>
 @endsection

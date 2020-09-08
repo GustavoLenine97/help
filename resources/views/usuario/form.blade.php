@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-<h1>Usuário</h1>
+    <h1>Usuário</h1>
 @endsection
 
 @section('content')
@@ -11,10 +11,10 @@
         <div class="box-body">
             <div class="form-group">
                 <label>Funcionário</label>
-                <select class="form-control" name="id_func">
-                @foreach($funcionario as $func)
-                <option value="{{ $func->id_func }}">{{$func->nome_func}}</option>
-                @endforeach 
+                <select id="select" class="form-control" name="id_func">
+                    @foreach($funcionario as $func)
+                        <option value="{{ $func->id_func }}">{{$func->nome_func}}</option>
+                    @endforeach 
                 </select>
             </div>
         
@@ -36,9 +36,20 @@
             </div>
     
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="submit" class="btn btn-success" id="button">Cadastrar</button>
             </div>
         </div>
     </form>
 
+@endsection
+
+@section('js')
+    <script>
+        $('#button').click(function(){
+            var select = document.getElementById('select').value;
+            $.ajax({
+                url: "funcionario/mudarstatususuarioativo/"+select,
+            })
+        });
+    </script>
 @endsection

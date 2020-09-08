@@ -7,8 +7,10 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Chamado;
+use DateTime;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ChamadoController extends Controller
 {
@@ -37,7 +39,7 @@ class ChamadoController extends Controller
                     ->join('Categoria','Categoria.CodigoCategoria','=','chamado.id_cat')
                     ->join('SubCategoria','SubCategoria.CodigoSubCategoria','=','chamado.id_subcat')
                     ->select('chamado.*','users.*','Categoria.*','SubCategoria.*')
-                    ->where('status','=','Aberto')
+                    ->where('chamado.status_chamado','=','Aberto')
                     ->get();
         return view('chamado.index',['chamado' => $chamado]);       
     }
@@ -77,8 +79,10 @@ class ChamadoController extends Controller
         $chamado->id_cat = $req->category;
         $chamado->id_subcat = $req->subcategory;
         $chamado->descricao = $req->descricao;
+        $data = new DateTime();
+        $chamado->created_at = $data;
         $chamado->save();
-        return redirect('chamado/aberto');       
+        return redirect('chamado')->with('success', 'Task Created Successfully!');;       
     }
 
     public function chamadoAbertos()
@@ -88,7 +92,7 @@ class ChamadoController extends Controller
                         ->join('Categoria','Categoria.CodigoCategoria','=','chamado.id_cat')
                         ->join('SubCategoria','SubCategoria.CodigoSubCategoria','=','chamado.id_subcat')
                         ->select('chamado.*','users.*','Categoria.*','SubCategoria.*')
-                        ->where('chamado.status','=','Aberto')
+                        ->where('chamado.AtivoCategoria','=','S')
                         ->get();
         $quantidade = DB::table('chamado')->get();
         
@@ -118,7 +122,23 @@ class ChamadoController extends Controller
         $chamado->id_chamado = $id;
         $chamado = DB::table('chamado')->where('id_chamado','=',$chamado->id_chamado)
                     ->update([
-                        'status' => 'Fechado'
+                        'status_chamado' => 'Fechado'
                     ]);
+    }
+
+    protected function alerttt(){
+        Alert::alert('Title', 'Message', 'Type');
+        echo 'Teste';
+    }
+
+    protected function meuschamados(){
+        $user = Auth::user();
+        $chamado = DB::table('chamado')
+                        ->join('Categoria','Categoria.CodigoCategoria','=','chamado.id_cat')
+                        ->join('SubCategoria','SubCategoria.CodigoSubCategoria','=','chamado.id_subcat')
+                        ->select('chamado.*','Categoria.*','SubCategoria.*')
+                        ->where('chamado.id_user','=',$user->id)
+                        ->get();
+        return view('chamado.meuschamados',['chamado' => $chamado]);
     }
 }

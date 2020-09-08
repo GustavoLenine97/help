@@ -13,7 +13,7 @@ class CreateChamadoEncerradosTable extends Migration
      */
     public function up()
     {
-        Schema::create('chamado_encerrados', function (Blueprint $table) {
+        Schema::create('chamado_encerrado', function (Blueprint $table) {
             $table->id('id_cha_enc');
 
             $table->bigInteger('id_chamado')->unsigned();
@@ -30,6 +30,6 @@ class CreateChamadoEncerradosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chamado_encerrados');
+        Schema::dropIfExists('chamado_encerrado');
     }
 }

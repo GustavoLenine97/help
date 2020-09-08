@@ -6,10 +6,10 @@
 
 @section('content')
 
-    <form action="delete" method="POST">
+    <form action="update" method="POST">
         @csrf
         <div class="form-group">
-            <label>Deletar local</label>
+            <label>Atualizar local</label>
             <select class="form-control" name="id_local">
                 @foreach($local as $loc)
                     <option value="{{ $loc->id_local}}">{{$loc->nome_local}}</option>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Deletar</button>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
         </div>
     </form>
 @endsection

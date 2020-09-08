@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Funcionario</h1>
+    <h1>Funcionário</h1>
 @endsection
 
 @section('content')
@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="categoria/atualizar">
+            <a href="funcionario/atualizar">
                 <div class="info-box bg-blue">
                     <span class="info-box-icon"><i class="fa fa-spinner"></i></span>
                     <div class="info-box-content">

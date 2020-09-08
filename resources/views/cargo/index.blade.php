@@ -11,7 +11,7 @@
                 <div class="info-box bg-green">
                     <span class="info-box-icon"><i class="fa fa-plus"></i></span>
                     <div class="info-box-content">
-                        <h4>Adicionar um novo cargo</h4>
+                        <h4>Adicionar cargo</h4>
                     </div>
                 <!-- /.info-box-content -->
                 </div>
@@ -20,11 +20,11 @@
         </div>
 
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="local/deletar">
+            <a href="cargo/deletar">
                 <div class="info-box bg-red">
                     <span class="info-box-icon"><i class="fa fa-minus-circle"></i></span>
                     <div class="info-box-content">
-                        <h4>Remover local</h4>
+                        <h4>Remover cargo</h4>
                     </div>
                 <!-- /.info-box-content -->
                 </div>
@@ -33,11 +33,11 @@
         </div>
 
         <div class="col-md-3 col-sm-6 col-xs-12">
-            <a href="categoria/atualizar">
+            <a href="cargo/atualizar">
                 <div class="info-box bg-blue">
                     <span class="info-box-icon"><i class="fa fa-spinner"></i></span>
                     <div class="info-box-content">
-                        <h4>Atualizar categoria</h4>
+                        <h4>Atualizar cargo</h4>
                     </div>
                 <!-- /.info-box-content -->
                 </div>

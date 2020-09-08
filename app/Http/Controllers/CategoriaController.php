@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
+use App\Models\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +42,7 @@ class CategoriaController extends Controller
         $SubCategoria = DB::table('SubCategoria')
         ->join('Categoria','SubCategoria.CodigoCategoria','=','Categoria.CodigoCategoria')
         ->select('SubCategoria.DescricaoSubCategoria')->where('DescricaoCategoria','=',$request)->get();
-        return view('categoria.subcategoria',['subcats' => $SubCategoria]);
+        return view('categoria.subcategoria',['subcats' => $SubCategoria,]);
     }
 
     // Função para pesquisar determinada categoria 
@@ -84,4 +85,90 @@ class CategoriaController extends Controller
         $categoria = DB::table('Categoria')->where('CodigoCategoria','=',$categoria->CodigoCategoria)->delete();
         return redirect('categoria');
     }
+
+    protected function formUpdateCategoria()
+    {
+        $categoria = DB::table('Categoria')->select('CodigoCategoria','DescricaoCategoria')->get();
+        return view('categoria.formUpdate',['categoria' => $categoria]);
+    }
+
+    protected function formAtualizarCategoria(Request $req)
+    {
+        $categoria = DB::table('Categoria')->select('CodigoCategoria','DescricaoCategoria')->where('CodigoCategoria','=',$req->id_cat)->get();
+        return view('categoria.update',['categoria' => $categoria]);
+    }
+
+    protected function update(Request $req)
+    {
+        $categoria = new Categoria;
+        $categoria->CodigoCategoria = $req->CodigoCategoria;
+        $categoria->DescricaoCategoria = $req->DescricaoCategoria;
+
+        $categoria = DB::table('Categoria')->where('CodigoCategoria','=',$categoria->CodigoCategoria)
+                        ->update([
+                            'DescricaoCategoria' => $categoria->DescricaoCategoria
+                        ]);
+        
+        return redirect('categoria');
+    }
+
+    // Cadastrar subcategoria
+    protected function formCadastrarSubcategoria(String $request)
+    {
+        $subcat = DB::table('Categoria')->select('CodigoCategoria')->where('DescricaoCategoria','=',$request)->get();
+        return view('subcategoria.form',['categoria' => $subcat]);
+    }
+
+    protected function saveSubCategoria(Request $req)
+    {
+        $SubCategoria = new Subcategoria;
+        $SubCategoria->DescricaoSubCategoria = $req->DescricaoSubCategoria;
+        $SubCategoria->CodigoCategoria = $req->subcategoria;
+        
+        DB::table('SubCategoria')->insert([
+            ['DescricaoSubCategoria' => $SubCategoria->DescricaoSubCategoria,
+             'CodigoCategoria' => $SubCategoria->CodigoCategoria
+            ],
+        ]);
+        return redirect('categoria');
+    }
+
+    protected function formDeletarSubCategoria(String $request){
+        $subcat = DB::table('SubCategoria')
+                    ->join('Categoria','SubCategoria.CodigoCategoria','=','Categoria.CodigoCategoria')
+                    ->select('SubCategoria.*')->where('Categoria.DescricaoCategoria','=',$request)->get();
+        return view('subcategoria.delete',['subcat' => $subcat]);
+    }
+
+    protected function deleteSubCategoria(Request $req){
+        $subcat = new Subcategoria;
+        $subcat->CodigoSubCategoria = $req->id_subcat;
+        $subcat = DB::table('SubCategoria')->where('CodigoSubCategoria','=',$subcat->CodigoSubCategoria)->delete();
+        return redirect('categoria');
+    }
+
+    protected function formUpdateSubcategoria(String $request){
+        $subcat = DB::table('SubCategoria')
+                    ->join('Categoria','SubCategoria.CodigoCategoria','=','Categoria.CodigoCategoria')
+                    ->select('SubCategoria.*')->where('Categoria.DescricaoCategoria','=',$request)->get();
+        return view('subcategoria.formUpdate',['subcat' => $subcat]);
+    }
+
+    protected function formAtualizarSubcategoria(Request $req){
+        $subcat = DB::table('SubCategoria')->select('SubCategoria.*')->where('CodigoSubCategoria','=',$req->id_subcat)->get();
+        return view('subcategoria.update',['subcategoria' => $subcat]);
+    }
+
+    protected function updateSubCategoria(Request $req){
+        $subcat = new Subcategoria;
+        $subcat->CodigoSubCategoria = $req->CodigoSubCategoria;
+        $subcat->DescricaoSubCategoria = $req->DescricaoSubCategoria;
+
+        $subcat = DB::table('SubCategoria')->where('CodigoSubCategoria','=',$subcat->CodigoSubCategoria)
+                    ->update([
+                        'DescricaoSubCategoria' => $subcat->DescricaoSubCategoria
+                    ]);
+        return redirect('categoria');
+    }
+
 }

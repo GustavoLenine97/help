@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CheckIsAdminMiddleware
 {
@@ -17,11 +18,10 @@ class CheckIsAdminMiddleware
     {
         $user = auth()->user(); 
 
-        if ($user->email == 'glenine06@gmail.com'){
-            return redirect('/home');
+        if ($user->email == 'gustavo@lenine.com'){
+            
         }else {
-            echo 'Usuário inválido!';
-            exit(1);
+            toast('Success Toast','success');
         }
 
         return $next($request);
