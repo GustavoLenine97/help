@@ -228,7 +228,7 @@ return [
         [
             'text' => 'Cargo',
             'url'  => 'cargo',
-            'icon' => 'fas fa-fw fa-deviantart',
+            'icon' => 'fas fa-fw fa-asterisk',
         ],
         [
             'text' => 'Local',
@@ -252,7 +252,7 @@ return [
         ],
         [
             'text' => 'Chamados Encerrados',
-            'url'  => 'chamado_encerrado/index',
+            'url'  => 'chamado_encerrado',
             'icon' => 'fas fa-fw fa-lock',
         ],
     ],

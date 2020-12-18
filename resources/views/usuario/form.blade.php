@@ -1,45 +1,85 @@
 @extends('adminlte::page')
 
-@section('content_header')
-    <h1>Usuário</h1>
-@endsection
-
 @section('content')
-   
-   <form action="submit" method="POST">
-    @csrf
-        <div class="box-body">
-            <div class="form-group">
-                <label>Funcionário</label>
-                <select id="select" class="form-control" name="id_func">
-                    @foreach($funcionario as $func)
-                        <option value="{{ $func->id_func }}">{{$func->nome_func}}</option>
-                    @endforeach 
-                </select>
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">Usuário</h3><br>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/usuario">Usuário Home</a></li>
+                        <li class="breadcrumb-item active">Cadastrar</li>
+                    </ol>
+                </div>
             </div>
         
-            <div class="form-group">
-                <label>E-mail</label>
-                <input type="email" class="form-control" name="email" placeholder="Descreva o seu email">
-            </div>
 
-            <div class="form-group">
-                <label>Login</label>
-                <input type="text" class="form-control" name="login" placeholder="Descreva o seu login">
-            </div>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-            <div class="form-group">
-                <label>Senha</label>
-                <input type="password" class="form-control" name="password" placeholder="Descreva a sua senha">
-            </div>
+                <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
-            </div>
-    
-            <div class="form-group">
-                <button type="submit" class="btn btn-success" id="button">Cadastrar</button>
-            </div>
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Register') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 
 @endsection
 

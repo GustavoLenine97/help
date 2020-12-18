@@ -12,4 +12,6 @@ class Chamado extends Model
     protected $fillable = [
         'id_chamado','name','descricao','status'
     ];
+    protected $dates = ['created_at', 'updated_at'];
+    //public $timestamps = true;
 }

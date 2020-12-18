@@ -41,6 +41,12 @@ return [
             'provider' => 'users',
         ],
 
+        'employee' => [
+            'redirectTo' => 'employee.home',
+            'driver' => 'session',
+            'provider' => 'employees',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -71,10 +77,10 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Employee::class,
+        ],
     ],
 
     /*
@@ -98,6 +104,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+
+        'employees' => [
+            'provider' => 'employees',
+            'table' => 'employees_password_resets',
+            'expire' => 15,
         ],
     ],
 

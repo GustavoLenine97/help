@@ -11,7 +11,7 @@ class CargoController extends Controller
 {
     public function index()
     {
-        $cargo = DB::table('cargo')->select('id_cargo','cargo')->get();
+        $cargo = DB::table('cargo')->select('id_cargo','cargo')->paginate(1);
         return view('cargo.index',['cargo' => $cargo]);
     }
 

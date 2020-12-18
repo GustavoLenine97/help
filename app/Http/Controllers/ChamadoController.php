@@ -11,6 +11,9 @@ use DateTime;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Controllers;
+use Carbon\Carbon;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class ChamadoController extends Controller
 {
@@ -40,7 +43,10 @@ class ChamadoController extends Controller
                     ->join('SubCategoria','SubCategoria.CodigoSubCategoria','=','chamado.id_subcat')
                     ->select('chamado.*','users.*','Categoria.*','SubCategoria.*')
                     ->where('chamado.status_chamado','=','Aberto')
-                    ->get();
+                    ->paginate(5);
+        //return Carbon::parse($chamado)->toDateString();
+
+        //return response()->json($chamado);            
         return view('chamado.index',['chamado' => $chamado]);       
     }
 
@@ -67,8 +73,8 @@ class ChamadoController extends Controller
 
     public function abrirChamado()
     {
-        $categoria = DB::table('Categoria')->select('CodigoCategoria','DescricaoCategoria','AtivoCategoria')->where('CodigoCategoria','<',7)->get();
-        return view('chamado.form',['categoria' => $categoria]);
+        $categoria = DB::table('Categoria')->select('CodigoCategoria','DescricaoCategoria','AtivoCategoria')->get();
+        return view('chamado.form',['categoria' => $categoria])->with('success','Login Successfully!');
     }
 
     public function save(Request $req)
@@ -79,10 +85,8 @@ class ChamadoController extends Controller
         $chamado->id_cat = $req->category;
         $chamado->id_subcat = $req->subcategory;
         $chamado->descricao = $req->descricao;
-        $data = new DateTime();
-        $chamado->created_at = $data;
         $chamado->save();
-        return redirect('chamado')->with('success', 'Task Created Successfully!');;       
+        return redirect('home')->with('success', 'Task Created Successfully!');;       
     }
 
     public function chamadoAbertos()
@@ -124,12 +128,35 @@ class ChamadoController extends Controller
                     ->update([
                         'status_chamado' => 'Fechado'
                     ]);
+
+        $chamado_hora = DB::table('chamado_encerrado')->where('id_cha_enc','=',$id)
+                        ->select('chamado_encerrado.data_e')
+                        ->get();
+        
+        $data2 = "22/02/2020";            
+                        
+        $data1 = implode('/', array_reverse(explode('/', $chamado_hora)));
+        $data2 = implode('-', array_reverse(explode('/', $data2)));
+
+        
+        $d1 = strtotime($data1);               
+        $d2 = strtotime($data2);
+         
+        $dataFinal = ($d2 - $d1) /86400;
+
+        if($dataFinal < 0)
+            $dataFinal *= -1;
+
+        echo $dataFinal;
     }
+
 
     protected function alerttt(){
         Alert::alert('Title', 'Message', 'Type');
         echo 'Teste';
     }
+
+    private $totalPage = 10;
 
     protected function meuschamados(){
         $user = Auth::user();
@@ -138,7 +165,45 @@ class ChamadoController extends Controller
                         ->join('SubCategoria','SubCategoria.CodigoSubCategoria','=','chamado.id_subcat')
                         ->select('chamado.*','Categoria.*','SubCategoria.*')
                         ->where('chamado.id_user','=',$user->id)
-                        ->get();
+                        ->paginate($this->totalPage);
         return view('chamado.meuschamados',['chamado' => $chamado]);
+    }
+
+    public function count(){
+        $chamado = DB::table('users')
+                    //->join('users','users.id','=','chamado.id_user')
+                    ->select('id','name')
+                    ->get();//->count();
+        //echo $chamado;  
+        
+        $count = DB::table('chamado')
+        ->join('users','users.id','=','chamado.id_user')
+        ->select('chamado.*','users.*')
+        ->where('id_user','=','[1-9]')
+        ->get()->count();
+        
+        echo $count;
+        //$counter = ChamadoController::numerochamado(1);
+
+        //return view('chamado.count',[ 'chamado' => $chamado , 'quantidade' => $count]);
+    }
+
+    public static function numerochamado($teste){
+        $chamado = DB::table('users')
+                    //->join('users','users.id','=','chamado.id_user')
+                    ->select('id','name')
+                    ->get();//->count();
+        
+        $count = DB::table('chamado')
+        ->join('users','users.id','=','chamado.id_user')
+        ->select('chamado.*','users.*')
+        ->where('id_user','=',$teste)
+        ->get()->count();
+        return response()->json($count);
+        //return view('chamado.count',['quantidade' => $count ]);
+    }
+
+    public function t(){
+        return view('chamado.teste');
     }
 }

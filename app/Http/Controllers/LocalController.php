@@ -11,7 +11,7 @@ class LocalController extends Controller
 {
     public function index()
     {
-        $local = DB::table('local')->select('local.*')->get();
+        $local = DB::table('local')->select('local.*')->paginate(1);
         return view('local.index',['local' => $local]);
     }
 

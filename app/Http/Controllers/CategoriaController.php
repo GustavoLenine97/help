@@ -13,7 +13,7 @@ class CategoriaController extends Controller
     // Função chama a view para mostrar todas as categorias 
     public function index()
     {
-        $Categoria = DB::table('Categoria')->select('CodigoCategoria','DescricaoCategoria','AtivoCategoria')->get();
+        $Categoria = DB::table('Categoria')->select('CodigoCategoria','DescricaoCategoria','AtivoCategoria')->paginate(4);
         return view('categoria.index',['cats' => $Categoria]);
     }
 
@@ -171,4 +171,12 @@ class CategoriaController extends Controller
         return redirect('categoria');
     }
 
+    public function count(){
+        $cat = DB::table('Categoria')->select('DescricaoCategoria')->where('DescricaoCategoria','=','Hardware')
+        ->get();
+        $cats = DB::table('Categoria')->select('DescricaoCategoria')->where('DescricaoCategoria','=','Hardware')
+        ->get()
+        ->count();
+        return view('categoria.count',['count' => $cat, 'countts' => $cats]);
+    }
 }

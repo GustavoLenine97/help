@@ -22,13 +22,17 @@ class ChamadoEncerradoController extends Controller
 
     public function index()
     {   
+        $numero = 10;
+        
         $chamado_enc = DB::table('chamado_encerrado')
                         ->join('chamado','chamado.id_chamado','=','chamado_encerrado.id_chamado')
                         ->join('Categoria','Categoria.CodigoCategoria','=','chamado.id_cat')
                         ->join('SubCategoria','SubCategoria.CodigoSubCategoria','=','chamado.id_subcat')
                         ->join('users','users.id','=','chamado.id_user')
                         ->select('chamado_encerrado.*','chamado.*','Categoria.*','SubCategoria.*','users.*')
-                        ->get();
+                        ->orderBy('chamado_encerrado.id_cha_enc')
+                        ->paginate($numero);
+                        //->get();
         $json = json_encode($chamado_enc);
         return view('chamado_encerrado.index',['chamado_enc' => $chamado_enc,'json' => $json]);
     }
@@ -60,7 +64,7 @@ class ChamadoEncerradoController extends Controller
     public function search(Request $request)
     {   
         $filters = $request->except('_token');
-
+        
         $chamado_enc = $this->repository->search($request->filter);
 
         return view('chamado_encerrado.index',[

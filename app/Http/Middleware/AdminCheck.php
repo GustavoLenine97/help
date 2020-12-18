@@ -18,7 +18,7 @@ class AdminCheck
         
         if ($request->user()->admin == false){
             echo $request->user()->admin;
-            // return abort(403, "Acesso não autorizado!");
+            //return abort(403, "Acesso não autorizado!");
         }
 
         return $next($request);

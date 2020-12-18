@@ -1,63 +1,76 @@
 @extends('adminlte::page')
 
-@section('content_header')
-    <h1>Local</h1>
-@endsection
-
 @section('content')
-
-    @foreach ($local as $loc)
-        <form action="updated" method="POST">
-        @csrf
-            <div class="box-body">
-                <div class="form-group">
-                    <input type="hidden" name="id_local" value="{{ $loc->id_local }}">
-                    <label>Nome do Local</label>
-                    <input type="text" class="form-control" name="nome_local" value="{{ $loc->nome_local }}" placeholder="Descreva o nome do Local">
+    
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0 text-dark">Local</h3><br>
                 </div>
-
-                <div class="form-group">
-                    <label>Número do Local</label>
-                    <input type="text" class="form-control" name="numero" value="{{ $loc->numero }}" placeholder="Descreva o nome do Local">
-                </div>
-
-                <div class="form-group">
-                    <label>Telefone do Local</label>
-                    <input type="text" class="form-control" name="telefone" id="telefone" maxlength="15" value="{{ $loc->telefone }}" placeholder="Descreva o telefone do Local">
-                </div>
-
-                <div class="form-group">
-                    <label>CEP</label>
-                    <input type="text" class="form-control" name="CEP" id="cep" value="{{ $loc->CEP }}" placeholder="Descreva o nome do Local" onblur="pesquisacep(this.value);">
-                </div>
-
-                <div class="form-group">
-                    <label>Rua</label>
-                    <input type="text" class="form-control" name="rua" id="rua" value="{{ $loc->rua }}">
-                </div>
-
-                <div class="form-group">
-                    <label>Bairro</label>
-                    <input type="text" class="form-control" name="bairro" id="bairro" value="{{ $loc->bairro }}">
-                </div>
-
-                <div class="form-group">
-                    <label>Cidade</label>
-                    <input type="text" class="form-control" name="cidade" id="cidade" value={{ $loc->cidade }}>
-                </div>
-
-                <div class="form-group">
-                    <label>Estado</label>
-                    <input type="text" class="form-control" name="estado" id="uf" value="{{ $loc->estado }}">
-                    <input name="ibge" type="hidden" id="ibge" size="8">
-                </div>
-        
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/local">Local Home</a></li>
+                        <li class="breadcrumb-item active"><a href="/local/atualizar">Atualizar</a></li>
+                        <li class="breadcrumb-item active">Formulário Atualizar Local</li>
+                    </ol>
                 </div>
             </div>
-        </form>
-    @endforeach
+
+            @foreach ($local as $loc)
+                <form action="updated" method="POST">
+                @csrf
+                    <div class="box-body">
+                        <div class="form-group">
+                            <input type="hidden" name="id_local" value="{{ $loc->id_local }}">
+                            <label>Nome do Local</label>
+                            <input type="text" class="form-control" name="nome_local" value="{{ $loc->nome_local }}" placeholder="Descreva o nome do Local">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Número do Local</label>
+                            <input type="text" class="form-control" name="numero" value="{{ $loc->numero }}" placeholder="Descreva o nome do Local">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Telefone do Local</label>
+                            <input type="text" class="form-control" name="telefone" id="telefone" maxlength="15" value="{{ $loc->telefone }}" placeholder="Descreva o telefone do Local">
+                        </div>
+
+                        <div class="form-group">
+                            <label>CEP</label>
+                            <input type="text" class="form-control" name="CEP" id="cep" value="{{ $loc->CEP }}" placeholder="Descreva o nome do Local" onblur="pesquisacep(this.value);">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Rua</label>
+                            <input type="text" class="form-control" name="rua" id="rua" value="{{ $loc->rua }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bairro</label>
+                            <input type="text" class="form-control" name="bairro" id="bairro" value="{{ $loc->bairro }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input type="text" class="form-control" name="cidade" id="cidade" value={{ $loc->cidade }}>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <input type="text" class="form-control" name="estado" id="uf" value="{{ $loc->estado }}">
+                            <input name="ibge" type="hidden" id="ibge" size="8">
+                        </div>
+                
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Atualizar</button>
+                        </div>
+                    </div>
+                </form>
+            @endforeach
+        </div>
+    </div>
 
 @endsection
 

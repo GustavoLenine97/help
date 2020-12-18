@@ -18,7 +18,9 @@ class FuncionarioController extends Controller
         $func = DB::table('funcionario')
                     ->join('cargo','funcionario.id_cargo','=','cargo.id_cargo')
                     ->join('local','funcionario.id_local','=','local.id_local')
-                    ->select('funcionario.*','cargo.cargo','local.nome_local')->get();
+                    ->select('funcionario.*','cargo.cargo','local.nome_local')
+                    ->orderBy('funcionario.id_func')
+                    ->paginate(2);
         return view('funcionario.index',['funcionario' => $func]);
     }
 

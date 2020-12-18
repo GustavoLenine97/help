@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Subcategoria;
+use App\Http\Controllers\ChamadoController;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,24 +17,19 @@ use RealRashid\SweetAlert\Facades\Alert;
 |
 */
 Route::get('/', function () {
-    toast('Success Toast','success');
-
+    //echo 'Teste';
     return view('welcome');
 });
 
-
 Auth::routes();
+
+Route::get('usuario/home','UsuarioController@home');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth','check.is.admin'])->group(function () {
-    
-    // Route::get('/', function () {
-        // Uses first & second Middleware
-    // });
 
     Route::get('user/profile', function () {
-        // Uses first & second Middleware
     });
 
     Route::get('/rota1',function(){
@@ -45,8 +41,6 @@ Route::middleware(['auth','check.is.admin'])->group(function () {
         echo 'Rota 2';
         exit(1);
     })->name('rota2');
-
-
 
     // Rotas pra a Tabela Categoria
     // Mostrar as Categorias 
@@ -95,6 +89,8 @@ Route::middleware(['auth','check.is.admin'])->group(function () {
     Route::post('categoria/update','CategoriaController@formAtualizarCategoria');
 
     Route::post('categoria/updated','CategoriaController@update');
+
+    Route::get('categoria/count','CategoriaController@count');
 
     //Rotas pra locais
     // Mostrar todos os Locais
@@ -188,22 +184,7 @@ Route::middleware(['auth','check.is.admin'])->group(function () {
     // Rotas Chamados 
     Route::get('chamado','ChamadoController@index');
 
-    Route::get('ajax-subcat',function(){
-        $cat_id = Request::get('cat_id');
-
-        $subcategories = Subcategoria::where('CodigoCategoria','=',$cat_id)->get();
-
-        return Response::json($subcategories);
-
-    });
-
-});
-
 //Route::get('chamado/index','ChamadoController@index')->name('chamado.index');
-
-Route::get('chamado/abrirchamado','ChamadoController@abrirChamado')->name('chamado.abrirchamado');
-
-Route::post('chamado/submit','ChamadoController@save');
 
 Route::post('chamado/deletar','ChamadoController@deletar')->name('chamado.deletar');
 
@@ -215,11 +196,13 @@ Route::get('chamado/destroy/{id}','ChamadoController@destroy')->name('chamado.de
 
 Route::get('chamado/aberto','ChamadoController@chamadoAbertos');
 
-Route::get('chamado/meuschamados','ChamadoController@meuschamados');
+Route::get('chamado/count','ChamadoController@count');
+
+Route::get('chamado/numero/{teste}','ChamadoController@numerochamado')->name('numero');
 
 Route::resource('category','CategoryController');
 
-Route::get('chamado_encerrado/index','ChamadoEncerradoController@index');
+Route::get('chamado_encerrado','ChamadoEncerradoController@index');
 
 Route::get('chamado_encerrado/indexJson','ChamadoEncerradoController@indexJson')->name('chamado_encerrado.index');
 
@@ -228,3 +211,53 @@ Route::get('chamado/chamado_encerrado/{id}','ChamadoEncerradoController@save');
 Route::any('chamado_encerrado/search','ChamadoEncerradoController@search')->name('encerrado.search');
 
 Route::get('chamado/index','ChamadoController@alerttt');
+
+Route::view('testes','teste')->name('tester');
+
+Route::get('/hh',function(){
+    echo 'Teste';
+})->name('teste');
+
+});
+
+Route::get('ajax-subcat',function(){
+    $cat_id = Request::get('cat_id');
+
+    $subcategories = Subcategoria::where('CodigoCategoria','=',$cat_id)->get();
+
+    return Response::json($subcategories);
+
+});
+
+Route::get('ajax-count/{cat_id}',function($cat_id){
+    //$cat_id = Request::get('cat_id');
+
+    $sub = ChamadoController::numerochamado($cat_id);//->get();
+
+    return Response::json($sub);
+});
+
+Route::get('chamado/meuschamados','ChamadoController@meuschamados');
+
+Route::get('chamado/abrirchamado','ChamadoController@abrirChamado')->name('chamado.abrirchamado');
+
+Route::post('chamado/submit','ChamadoController@save');
+
+Route::prefix('employee')
+    ->as('employee.')
+    ->group(function() {
+        Route::get('home', 'Home\EmployeeHomeController@index')->name('home');
+Route::namespace('Auth\Login')
+      ->group(function() {
+       Route::get('login', 'EmployeeController@showLoginForm')->name('login');
+       Route::post('login.do', 'EmployeeController@llogin')->name('login.do');
+       Route::post('logout', 'EmployeeController@logout')->name('logout');
+    });
+ });
+
+Route::get('chamado/tester','ChamadoController@t')->name('a');
+
+Route::get('chamado/aaa',function(){
+    //echo date_default_timezone_get();
+    echo date_default_timezone_set('America/Sao_Paulo');
+})->name('ab');

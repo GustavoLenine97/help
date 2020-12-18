@@ -15,15 +15,14 @@ class CheckIsAdminMiddleware
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
+    {   
         $user = auth()->user(); 
 
-        if ($user->email == 'gustavo@lenine.com'){
-            
+        if ($user->level == 'admin'){
+            return $next($request);
         }else {
-            toast('Success Toast','success');
+            return redirect()->back()->with('message', 'ACESSO NEGADO');
         }
-
-        return $next($request);
+        
     }
 }

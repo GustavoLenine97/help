@@ -16,7 +16,7 @@ class UsuarioController extends Controller
                     ->join('funcionario','usuario.id_func','=','funcionario.id_func')
                     ->join('local','funcionario.id_local','=','local.id_local')
                     ->select('usuario.*','funcionario.*','local.*')
-                    ->get();
+                    ->paginate(2);
         return view('usuario.index',['usuario' => $usuario]);
     }
 
@@ -85,6 +85,9 @@ class UsuarioController extends Controller
 
     }
 
-    
+    public function home()
+    {
+        return view('usuario.home');
+    }
 
 }
